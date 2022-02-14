@@ -39,7 +39,7 @@ header {
 
 #logo h1 {
   color: white;
-  font-family: Pokemon Solid, sans-serif;
+  font-family: 'Shojumaru', cursive;
   font-size: 40px;
   font-weight: 100;
 }
@@ -61,9 +61,14 @@ header {
   padding-left: 10px;
   height: 32px;
   width: 100%;
-  border: 0;
+  border: none;
   box-shadow: 0 0 4px var(--cinza-claro);
   border-radius: 20px;
+}
+
+#search-section div input:focus {
+  box-shadow: 0 0 12px #3CACAE;
+  outline: none
 }
 
 #search-section button {
@@ -80,8 +85,6 @@ header {
 
 #search-section button:hover {
   cursor: pointer;
-  width: 42px;
-  height: 42px;
 }
 
 main {
@@ -318,6 +321,16 @@ main {
   opacity: 0.6;
 }
 
+footer {
+  text-align: center;
+  color: white;
+  font-size: 32px;
+  font-family: 'Akaya Telivigala', cursive;
+  font-weight: 100;
+  border-top: 1px solid var(--cinza2);
+  margin-bottom: 10px;
+}
+
 .normal {
   background-color: #a4acaf;
 }
@@ -446,7 +459,7 @@ main {
   
 }
 
-@media screen and (min-width: 600px) and (max-width:770px) {
+@media screen and (min-width: 600px) and (max-width:780px) {
   .pokemon-card {
     flex-wrap: wrap;
     justify-content: center;
@@ -475,7 +488,7 @@ main {
   #poke-card-info {
     flex-direction: column;
     flex-wrap: nowrap;
-    margin-bottom: 4px !important;
+    margin-bottom: 4px;
   }
 
   #info-section #poke-card-info #img-info-section {
@@ -538,6 +551,10 @@ main {
   #info-section #stats div meter {
     height: 16px;
     width: 70%;
+  }
+
+  footer {
+    font-size: 24px;
   }
 }
 
@@ -641,6 +658,10 @@ main {
   #info-section #stats div label {
     font-size: 12px;
   }
+
+  footer {
+    font-size: 24px;
+  }
 }
 
 @media screen and (max-width: 500px) {
@@ -659,5 +680,9 @@ main {
 
   #info-section #stats div label {
     font-size: 10px;
+  }
+
+  footer {
+    font-size: 18px;
   }
 }
