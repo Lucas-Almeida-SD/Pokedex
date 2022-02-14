@@ -19,9 +19,13 @@ function putPokemonInDataList(pokemons) {
 }
 
 async function getPokemon(url) {
-  const response = await fetch(url);
-  const data = await response.json();
-  return data;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function createImgPokemon(id, name) {
