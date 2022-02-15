@@ -58,6 +58,7 @@ function createPokemonName(name) {
 }
 
 function loadingScreen() {
+  infoSection.innerHTML = '';
   const newSection = document.createElement('section');
   newSection.id = 'loadingSection';
   const image = document.createElement('img');;
@@ -169,9 +170,9 @@ async function getInfo(event) {
   const beforeSelectedCard = selectedCard.parentElement.querySelector('.selected');
   if (beforeSelectedCard) { beforeSelectedCard.classList.remove('selected')}
   selectedCard.classList.add('selected');
+  loadingScreen();
   const url = `https://pokeapi.co/api/v2/pokemon/${selectedCard.id}`;
   const pokeInfo = await getPokemon(url);
-  loadingScreen();
   createInfoSection(selectedCard, pokeInfo);
 }
 
@@ -203,8 +204,9 @@ function serchPokemon() {
     return null
   }
   pokemonsSection.scroll(0, 0);
+  const getPositionFirstCard = pokemonsSection.children[0].getBoundingClientRect();
   const getPositionCard = getPokeCard.getBoundingClientRect();
-  pokemonsSection.scroll(0, getPositionCard.y - 142);
+  pokemonsSection.scroll(0, getPositionCard.y - getPositionFirstCard.y);
   getPokeCard.click();
   pokeInput.value = '';
 }
@@ -219,5 +221,5 @@ window.onload = async () => {
   pokeSearchBtn.disabled = false;
   pokeSearchBtn.style.backgroundImage = 'url("img/pokebola.png")';
   pokemonsSection.scroll(0, 0);
-  document.querySelector('#pokemons-section').children[0].click();
+  pokemonsSection.children[0].click();
 }
