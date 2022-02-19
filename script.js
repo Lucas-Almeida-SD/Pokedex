@@ -157,12 +157,35 @@ function createStats(stats) {
   return newSection;
 }
 
+function createWeaknessSpan(weaknesses, section) {
+  weaknesses.forEach((element) => {
+    const weaknessSpan = document.createElement('span');
+    weaknessSpan.className = element;
+    weaknessSpan.innerText = `${element[0].toUpperCase()}${element.slice(1)}`;
+    section.appendChild(weaknessSpan);
+  })
+}
+
+function createWeaknessesSection(pokemonType) {
+  const types = pokemonType.map((element) => element.type.name);
+  const weaknesses = getWeaknesses(types);
+  const newSection = document.createElement('section');
+  newSection.id = 'weaknesses';
+  const title = document.createElement('h2');
+  title.innerText = 'Weaknesses';
+  newSection.appendChild(title);
+  createWeaknessSpan(weaknesses, newSection);
+  return newSection;
+}
+
 function createInfoSection(card, pokemon) {
   infoSection.innerHTML = '';
   const pokeCardInfo = createPokeCardInfo(card, pokemon.types);
   const stats = createStats(pokemon.stats);
+  const weaknessesInfo = createWeaknessesSection(pokemon.types);
   infoSection.appendChild(pokeCardInfo);
   infoSection.appendChild(stats);
+  infoSection.appendChild(weaknessesInfo)
 }
 
 async function getInfo(event) {
