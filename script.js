@@ -200,8 +200,13 @@ async function getInfo(event) {
 }
 
 async function createPokemonCards(allPokemons) {
+  const pokemonsPromises = [];
   for (let index = 0; index < allPokemons.length; index += 1) {
-    const pokemon = await getPokemon(allPokemons[index].url);
+    pokemonsPromises.push(getPokemon(allPokemons[index].url));
+  }
+  const pokemonsResponses = await Promise.all(pokemonsPromises);
+  for (let index = 0; index < pokemonsResponses.length; index += 1) {
+    const pokemon = pokemonsResponses[index];
     const newDiv = document.createElement('div');
     newDiv.className = 'pokemon-card';
     newDiv.id = pokemon.name;
