@@ -91,6 +91,7 @@ main {
   display: flex;
   justify-content: space-between;
   padding: 0 30px 30px;
+  min-height: 80vh;
 }
 
 #pokemons-section , #info-section {
@@ -177,7 +178,7 @@ main {
   width: 52%;
 }
 
-#info-section #loadingSection {
+#loadingSection {
   display: flex;
   flex-direction: column;
   align-self: center;
@@ -189,8 +190,14 @@ main {
   font-weight: 100;
 }
 
-#info-section #loadingSection img{
+main #loadingSection img {
+  width: 80%;
+  max-width: 500px;
+}
+
+#info-section #loadingSection img {
   width: 50%;
+  max-width: 500px;
 }
 
 #info-section #poke-card-info {
