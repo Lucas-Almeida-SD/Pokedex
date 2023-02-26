@@ -1,9 +1,12 @@
 const URL_BASE = `https://pokeapi.co/api/v2/pokemon/`;
+const main = document.querySelector('main');
 const pokemonsList = document.querySelector('#pokemons-list');
 const pokemonsSection = document.querySelector('#pokemons-section');
 const infoSection = document.querySelector('#info-section');
 const pokeSearchBtn = document.querySelector('#poke-search');
 const pokeInput = document.querySelector('#poke-input');
+
+
 
 function createOptions(pokemonName) {
   const option = document.createElement('option');
@@ -57,8 +60,10 @@ function createPokemonName(name) {
   return pokeName;
 }
 
-function loadingScreen() {
-  infoSection.innerHTML = '';
+function loadingScreen(section, clearSection) {
+  if (clearSection) {
+    section.innerHTML = '';
+  }
   const newSection = document.createElement('section');
   newSection.id = 'loadingSection';
   const image = document.createElement('img');;
@@ -68,7 +73,7 @@ function loadingScreen() {
   paragraph.innerText = 'Loading...';
   newSection.appendChild(image);
   newSection.appendChild(paragraph);
-  infoSection.appendChild(newSection);
+  section.appendChild(newSection);
 }
 
 function createImgInfoSection(card) {
@@ -193,7 +198,7 @@ async function getInfo(event) {
   const beforeSelectedCard = selectedCard.parentElement.querySelector('.selected');
   if (beforeSelectedCard) { beforeSelectedCard.classList.remove('selected')}
   selectedCard.classList.add('selected');
-  loadingScreen();
+  loadingScreen(infoSection, true);
   const url = `https://pokeapi.co/api/v2/pokemon/${selectedCard.id}`;
   const pokeInfo = await getPokemon(url);
   createInfoSection(selectedCard, pokeInfo);
@@ -205,6 +210,10 @@ async function createPokemonCards(allPokemons) {
     pokemonsPromises.push(getPokemon(allPokemons[index].url));
   }
   const pokemonsResponses = await Promise.all(pokemonsPromises);
+  main.removeChild(document.querySelector("#loadingSection"));
+  pokemonsSection.style.display = 'flex';
+  infoSection.style.display = 'flex';
+  main.style.justifyContent = 'space-between'
   for (let index = 0; index < pokemonsResponses.length; index += 1) {
     const pokemon = pokemonsResponses[index];
     const newDiv = document.createElement('div');
@@ -240,8 +249,15 @@ function serchPokemon() {
 }
 pokeSearchBtn.addEventListener('click', serchPokemon)
 
+function waitToLoadAllPokemons() {
+  pokemonsSection.style.display = 'none';
+  infoSection.style.display = 'none';
+  main.style.justifyContent = 'center'
+  loadingScreen(main, false);
+}
+
 window.onload = async () => {
-  loadingScreen();
+  waitToLoadAllPokemons();
   const pokemonsResult = await getPokemon(`${URL_BASE}?offset=0&limit=898`);
   putPokemonInDataList(pokemonsResult.results);
   await createPokemonCards(pokemonsResult.results);
