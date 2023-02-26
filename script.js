@@ -67,7 +67,7 @@ function loadingScreen(section, clearSection) {
   const newSection = document.createElement('section');
   newSection.id = 'loadingSection';
   const image = document.createElement('img');;
-  image.src = 'img/loading.gif';
+  image.src = 'img/picachu_running.gif';
   image.alt = 'loading';
   const paragraph = document.createElement('h2');
   paragraph.innerText = 'Loading...';
